@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height, user-scalable=0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="full-screen" content="yes" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="360-fullscreen" content="true" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Reddit Mind Wars - Beta</title>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+  </head>
+  <body>
+    <canvas id="bg"></canvas>
+    
+    <!-- Custom Splash Screen -->
+    <div class="splash-screen" id="splash-screen">
+      <div class="splash-content">
+        <div class="universe-animation">
+          <div class="central-star"></div>
+          <div class="orbit orbit-1">
+            <div class="planet planet-1"></div>
+          </div>
+          <div class="orbit orbit-2">
+            <div class="planet planet-2"></div>
+          </div>
+          <div class="orbit orbit-3">
+            <div class="planet planet-3"></div>
+          </div>
+          <div class="orbit orbit-4">
+            <div class="planet planet-4"></div>
+          </div>
+        </div>
+        <h1 class="splash-title">Reddit Mind Wars</h1>
+        <p class="splash-subtitle">Where Communities Battle Through Collective Intelligence</p>
+        <div class="splash-features">
+          <div class="feature">🧠 Contribute Thought Energy</div>
+          <div class="feature">🌍 Evolve Your Community Planet</div>
+          <div class="feature">⚔️ Battle Other Communities</div>
+          <div class="feature">🏆 Achieve Transcendence</div>
+        </div>
+        <button class="enter-universe-btn" id="enter-universe">Enter the Universe</button>
+        <div class="loading-indicator">
+          <div class="loading-bar">
+            <div class="loading-progress" id="loading-progress"></div>
+          </div>
+          <p class="loading-text" id="loading-text">Initializing Mind Wars Universe...</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="overlay">
+      <h1 class="title" id="title">Reddit Mind Wars</h1>
+      <p class="description" id="game-info">Loading universe...</p>
+      <div class="counter-row">
+        <span class="energy-label">Total Thought Energy:</span>
+        <span class="counter-value" id="counter-value">0</span>
+      </div>
+      <div class="game-controls">
+        <button class="battle-btn" id="battle-btn">Start Battle</button>
+        <button class="view-btn" id="view-btn">Universe View</button>
+      </div>
+      <footer class="footer">
+        <button class="docs-link" id="docs-link" type="button">Docs</button>
+        <span class="divider">|</span>
+        <button class="docs-link" id="playtest-link" type="button">r/Devvit</button>
+        <span class="divider">|</span>
+        <button class="docs-link" id="discord-link" type="button">Discord</button>
+      </footer>
+    </div>
+    <script type="module" src="main.ts" defer></script>
+  </body>
+</html>

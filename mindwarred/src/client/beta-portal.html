@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit Mind Wars - Beta Testing Portal</title>
+    <link rel="stylesheet" href="beta-portal.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+</head>
+<body>
+    <!-- Beta Portal Header -->
+    <header class="beta-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">🧠</div>
+                <div class="title-section">
+                    <h1>Reddit Mind Wars</h1>
+                    <span class="beta-badge">BETA TESTING</span>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="#overview" class="nav-link">Overview</a>
+                <a href="#testing" class="nav-link">Testing</a>
+                <a href="#feedback" class="nav-link">Feedback</a>
+                <a href="#community" class="nav-link">Community</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="overview">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h2>Welcome to the Future of Reddit Gaming</h2>
+                <p>Join the exclusive beta test of Reddit Mind Wars - where communities battle through collective intelligence in a stunning 3D universe.</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number" id="beta-testers">247</span>
+                        <span class="stat-label">Beta Testers</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="communities">12</span>
+                        <span class="stat-label">Communities</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="feedback-count">89</span>
+                        <span class="stat-label">Feedback Items</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <button class="cta-button primary" id="start-testing">🚀 Start Testing</button>
+                    <button class="cta-button secondary" id="view-guide">📚 Testing Guide</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="planet-preview">
+                    <div class="planet-container">
+                        <div class="planet main-planet"></div>
+                        <div class="planet-ring ring-1"></div>
+                        <div class="planet-ring ring-2"></div>
+                        <div class="energy-particles">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
+                    </div>
+                    <div class="planet-info">
+                        <h3>r/gaming Planet</h3>
+                        <div class="energy-bar">
+                            <div class="energy-fill" style="width: 75%;"></div>
+                        </div>
+                        <p>2,847 Thought Energy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testing Dashboard -->
+    <section class="testing-section" id="testing">
+        <div class="section-content">
+            <h2>🧪 Beta Testing Dashboard</h2>
+            <p>Track your testing progress and contribute to making Reddit Mind Wars amazing.</p>
+            
+            <div class="testing-grid">
+                <!-- Testing Progress -->
+                <div class="testing-card">
+                    <div class="card-header">
+                        <h3>📊 Your Progress</h3>
+                        <span class="progress-badge">Level 3 Tester</span>
+                    </div>
+                    <div class="progress-stats">
+                        <div class="progress-item">
+                            <span class="progress-label">Tests Completed</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%;" data-value="12/20"></div>
+                            </div>
+                            <span class="progress-value">12/20</span>
+                        </div>
+                        <div class="progress-item">
+                            <span class="progress-label">Feedback Submitted</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%;" data-value="8/10"></div>
+                            </div>
+                            <span class="progress-value">8/10</span>
+                        </div>
+                        <div class="progress-item">
+                            <span class="progress-label">Bugs Found</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%;" data-value="5/5"></div>
+                            </div>
+                            <span class="progress-value">5/5</span>
+                        </div>
+                    </div>
+                    <div class="achievements">
+                        <h4>🏆 Achievements</h4>
+                        <div class="achievement-list">
+                            <div class="achievement earned">🐛 Bug Hunter</div>
+                            <div class="achievement earned">🎮 Game Tester</div>
+                            <div class="achievement">💬 Feedback Master</div>
+                            <div class="achievement">⚡ Performance Expert</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Tests -->
+                <div class="testing-card">
+                    <div class="card-header">
+                        <h3>🎯 Active Test Scenarios</h3>
+                        <button class="refresh-btn" id="refresh-tests">🔄</button>
+                    </div>
+                    <div class="test-list">
+                        <div class="test-item priority-high">
+                            <div class="test-info">
+                                <h4>Mobile Battle System</h4>
+                                <p>Test real-time battles on mobile devices</p>
+                                <div class="test-meta">
+                                    <span class="test-priority">High Priority</span>
+                                    <span class="test-time">~15 min</span>
+                                </div>
+                            </div>
+                            <button class="test-btn" data-test="mobile-battle">Start Test</button>
+                        </div>
+                        
+                        <div class="test-item priority-medium">
+                            <div class="test-info">
+                                <h4>Challenge Difficulty Balance</h4>
+                                <p>Evaluate puzzle and creative challenge difficulty</p>
+                                <div class="test-meta">
+                                    <span class="test-priority">Medium Priority</span>
+                                    <span class="test-time">~10 min</span>
+                                </div>
+                            </div>
+                            <button class="test-btn" data-test="challenge-balance">Start Test</button>
+                        </div>
+                        
+                        <div class="test-item priority-low">
+                            <div class="test-info">
+                                <h4>Planet Evolution Visuals</h4>
+                                <p>Test planet transformation animations</p>
+                                <div class="test-meta">
+                                    <span class="test-priority">Low Priority</span>
+                                    <span class="test-time">~5 min</span>
+                                </div>
+                            </div>
+                            <button class="test-btn" data-test="planet-visuals">Start Test</button>
+                        </div>
+                        
+                        <div class="test-item completed">
+                            <div class="test-info">
+                                <h4>Tutorial Flow</h4>
+                                <p>First-time user onboarding experience</p>
+                                <div class="test-meta">
+                                    <span class="test-status">✅ Completed</span>
+                                    <span class="test-time">Completed 2h ago</span>
+                                </div>
+                            </div>
+                            <button class="test-btn completed" disabled>Completed</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Game Access -->
+                <div class="testing-card game-access">
+                    <div class="card-header">
+                        <h3>🎮 Live Game Access</h3>
+                        <div class="game-status online">
+                            <div class="status-dot"></div>
+                            <span>Online</span>
+                        </div>
+                    </div>
+                    <div class="game-preview">
+                        <div class="game-screenshot">
+                            <div class="screenshot-placeholder">
+                                <div class="play-overlay">
+                                    <div class="play-button">▶</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="game-info">
+                            <h4>Current Build: v0.8.2-beta</h4>
+                            <p>Latest features: Enhanced mobile controls, improved battle synchronization</p>
+                            <div class="game-stats">
+                                <span>👥 23 players online</span>
+                                <span>⚔️ 2 active battles</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game-actions">
+                        <button class="game-btn primary" id="launch-game">🚀 Launch Game</button>
+                        <button class="game-btn secondary" id="view-changelog">📝 Changelog</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feedback Section -->
+    <section class="feedback-section" id="feedback">
+        <div class="section-content">
+            <h2>💬 Feedback & Bug Reports</h2>
+            <p>Help us improve Reddit Mind Wars with your insights and bug reports.</p>
+            
+            <div class="feedback-grid">
+                <!-- Quick Feedback -->
+                <div class="feedback-card">
+                    <h3>⚡ Quick Feedback</h3>
+                    <div class="quick-feedback-options">
+                        <button class="feedback-option bug" data-type="bug">
+                            <div class="option-icon">🐛</div>
+                            <div class="option-text">
+                                <h4>Report Bug</h4>
+                                <p>Something's not working</p>
+                            </div>
+                        </button>
+                        
+                        <button class="feedback-option feature" data-type="feature">
+                            <div class="option-icon">✨</div>
+                            <div class="option-text">
+                                <h4>Suggest Feature</h4>
+                                <p>Ideas for improvement</p>
+                            </div>
+                        </button>
+                        
+                        <button class="feedback-option ui" data-type="ui">
+                            <div class="option-icon">🎨</div>
+                            <div class="option-text">
+                                <h4>UI/UX Feedback</h4>
+                                <p>Design suggestions</p>
+                            </div>
+                        </button>
+                        
+                        <button class="feedback-option performance" data-type="performance">
+                            <div class="option-icon">⚡</div>
+                            <div class="option-text">
+                                <h4>Performance Issue</h4>
+                                <p>Lag or slow loading</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Feedback -->
+                <div class="feedback-card">
+                    <h3>📋 Recent Community Feedback</h3>
+                    <div class="feedback-list">
+                        <div class="feedback-item">
+                            <div class="feedback-avatar">🎮</div>
+                            <div class="feedback-content">
+                                <div class="feedback-header">
+                                    <span class="feedback-user">u/GamerPro123</span>
+                                    <span class="feedback-time">2h ago</span>
+                                    <span class="feedback-type bug">Bug</span>
+                                </div>
+                                <p>Battle timer doesn't sync properly on mobile Safari</p>
+                                <div class="feedback-actions">
+                                    <button class="feedback-action">👍 5</button>
+                                    <button class="feedback-action">💬 Reply</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feedback-item">
+                            <div class="feedback-avatar">🎨</div>
+                            <div class="feedback-content">
+                                <div class="feedback-header">
+                                    <span class="feedback-user">u/DesignLover</span>
+                                    <span class="feedback-time">4h ago</span>
+                                    <span class="feedback-type feature">Feature</span>
+                                </div>
+                                <p>Planet customization could use more color options</p>
+                                <div class="feedback-actions">
+                                    <button class="feedback-action">👍 12</button>
+                                    <button class="feedback-action">💬 Reply</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feedback-item">
+                            <div class="feedback-avatar">⚡</div>
+                            <div class="feedback-content">
+                                <div class="feedback-header">
+                                    <span class="feedback-user">u/SpeedTester</span>
+                                    <span class="feedback-time">6h ago</span>
+                                    <span class="feedback-type performance">Performance</span>
+                                </div>
+                                <p>Loading time improved significantly in latest build!</p>
+                                <div class="feedback-actions">
+                                    <button class="feedback-action">👍 8</button>
+                                    <button class="feedback-action">💬 Reply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="view-all-btn">View All Feedback</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community-section" id="community">
+        <div class="section-content">
+            <h2>👥 Beta Testing Community</h2>
+            <p>Connect with other beta testers and share your experiences.</p>
+            
+            <div class="community-grid">
+                <!-- Leaderboard -->
+                <div class="community-card">
+                    <h3>🏆 Beta Tester Leaderboard</h3>
+                    <div class="leaderboard">
+                        <div class="leaderboard-item rank-1">
+                            <div class="rank">1</div>
+                            <div class="user-info">
+                                <span class="username">u/BetaMaster</span>
+                                <span class="points">2,847 points</span>
+                            </div>
+                            <div class="badges">
+                                <span class="badge gold">🥇</span>
+                                <span class="badge">🐛</span>
+                            </div>
+                        </div>
+                        
+                        <div class="leaderboard-item rank-2">
+                            <div class="rank">2</div>
+                            <div class="user-info">
+                                <span class="username">u/TestingPro</span>
+                                <span class="points">2,156 points</span>
+                            </div>
+                            <div class="badges">
+                                <span class="badge silver">🥈</span>
+                                <span class="badge">✨</span>
+                            </div>
+                        </div>
+                        
+                        <div class="leaderboard-item rank-3">
+                            <div class="rank">3</div>
+                            <div class="user-info">
+                                <span class="username">u/GameTester</span>
+                                <span class="points">1,923 points</span>
+                            </div>
+                            <div class="badges">
+                                <span class="badge bronze">🥉</span>
+                                <span class="badge">🎮</span>
+                            </div>
+                        </div>
+                        
+                        <div class="leaderboard-item">
+                            <div class="rank">4</div>
+                            <div class="user-info">
+                                <span class="username">u/YourUsername</span>
+                                <span class="points">1,456 points</span>
+                            </div>
+                            <div class="badges">
+                                <span class="badge">🐛</span>
+                                <span class="badge">🎮</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Stats -->
+                <div class="community-card">
+                    <h3>📊 Community Stats</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-info">
+                                <span class="stat-number">247</span>
+                                <span class="stat-label">Active Testers</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon">🐛</div>
+                            <div class="stat-info">
+                                <span class="stat-number">89</span>
+                                <span class="stat-label">Bugs Found</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon">✨</div>
+                            <div class="stat-info">
+                                <span class="stat-number">156</span>
+                                <span class="stat-label">Features Suggested</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon">🎮</div>
+                            <div class="stat-info">
+                                <span class="stat-number">1,247</span>
+                                <span class="stat-label">Tests Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="community-actions">
+                        <button class="community-btn">💬 Join Discord</button>
+                        <button class="community-btn">📱 Follow Updates</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="beta-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Reddit Mind Wars Beta</h4>
+                <p>Exclusive beta testing for the future of Reddit gaming.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#testing">Start Testing</a></li>
+                    <li><a href="#feedback">Submit Feedback</a></li>
+                    <li><a href="BETA_TESTING.md">Testing Guide</a></li>
+                    <li><a href="#community">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#help">Help Center</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                    <li><a href="#discord">Discord Server</a></li>
+                    <li><a href="#status">System Status</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Reddit Mind Wars Beta. Built for the Reddit Community Games 2025 Hackathon.</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="test-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="test-modal-title">Test Scenario</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="test-modal-body">
+                <!-- Test content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="feedback-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="feedback-modal-title">Submit Feedback</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="feedback-modal-body">
+                <!-- Feedback form will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="beta-portal.js"></script>
+</body>
+</html>
