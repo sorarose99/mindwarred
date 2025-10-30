@@ -1,0 +1,97 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    function isValidFileSize(maxSizeInMB) {
+      return resource.size < maxSizeInMB * 1024 * 1024;
+    }
+    
+    function isValidImageType() {
+      return resource.contentType.matches('image/.*');
+    }
+    
+    function isValidDocumentType() {
+      return resource.contentType in [
+        'application/pdf',
+        'text/plain',
+        'text/markdown',
+        'application/json',
+        'text/csv'
+      ];
+    }
+    
+    // User-specific storage
+    match /users/{userId}/{allPaths=**} {
+      allow read, write: if isOwner(userId) && isAuthenticated();
+    }
+    
+    // User profile images
+    match /users/{userId}/profile/{imageId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId) && 
+                      isValidImageType() && 
+                      isValidFileSize(5); // 5MB limit
+    }
+    
+    // User document exports
+    match /users/{userId}/exports/{fileName} {
+      allow read, write: if isOwner(userId) && 
+                            isValidDocumentType() && 
+                            isValidFileSize(50); // 50MB limit
+    }
+    
+    // User automation backups
+    match /users/{userId}/backups/{fileName} {
+      allow read, write: if isOwner(userId) && 
+                            resource.contentType == 'application/json' && 
+                            isValidFileSize(10); // 10MB limit
+    }
+    
+    // User knowledge graph exports
+    match /users/{userId}/knowledge/{fileName} {
+      allow read, write: if isOwner(userId) && 
+                            isValidDocumentType() && 
+                            isValidFileSize(25); // 25MB limit
+    }
+    
+    // Temporary files (auto-delete after 24 hours)
+    match /temp/{userId}/{fileName} {
+      allow read, write: if isOwner(userId) && 
+                            isValidFileSize(100); // 100MB limit for temp files
+    }
+    
+    // Public assets (read-only)
+    match /public/{allPaths=**} {
+      allow read: if true;
+      allow write: if false; // Only admin can write
+    }
+    
+    // System assets (read-only)
+    match /system/{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Only admin can write
+    }
+    
+    // Error logs and crash reports
+    match /logs/{userId}/{logId} {
+      allow write: if isOwner(userId) && 
+                      resource.contentType == 'application/json' && 
+                      isValidFileSize(1); // 1MB limit
+      allow read: if false; // Only server can read logs
+    }
+    
+    // Default deny rule
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,157 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    function isValidUser() {
+      return isAuthenticated() && 
+             request.auth.uid is string &&
+             request.auth.uid.size() > 0;
+    }
+    
+    function hasValidTimestamp(data) {
+      return data.keys().hasAll(['createdAt', 'updatedAt']) &&
+             data.createdAt is timestamp &&
+             data.updatedAt is timestamp;
+    }
+    
+    function isRecentTimestamp(timestamp) {
+      return timestamp > request.time - duration.value(1, 'h') &&
+             timestamp <= request.time + duration.value(5, 'm');
+    }
+    
+    // Users collection
+    match /users/{userId} {
+      allow read, write: if isOwner(userId) && isValidUser();
+      allow create: if isOwner(userId) && 
+                       isValidUser() && 
+                       hasValidTimestamp(resource.data) &&
+                       isRecentTimestamp(resource.data.createdAt);
+      
+      // User preferences subcollection
+      match /preferences/{document=**} {
+        allow read, write: if isOwner(userId);
+      }
+      
+      // User activities subcollection
+      match /activities/{activityId} {
+        allow read, write: if isOwner(userId);
+        allow create: if isOwner(userId) && 
+                         hasValidTimestamp(resource.data) &&
+                         resource.data.userId == userId;
+        
+        // Limit activity creation rate (max 1000 per hour per user)
+        allow create: if isOwner(userId) && 
+                         request.time > resource.data.timestamp - duration.value(1, 'h');
+      }
+      
+      // User sessions subcollection
+      match /sessions/{sessionId} {
+        allow read, write: if isOwner(userId);
+        allow create: if isOwner(userId) && 
+                         resource.data.userId == userId &&
+                         hasValidTimestamp(resource.data);
+      }
+      
+      // User automation rules subcollection
+      match /automationRules/{ruleId} {
+        allow read, write: if isOwner(userId);
+        allow create: if isOwner(userId) && 
+                         resource.data.keys().hasAll(['name', 'isActive', 'trigger', 'actions']) &&
+                         hasValidTimestamp(resource.data);
+        
+        // Limit number of automation rules per user (max 50)
+        allow create: if isOwner(userId) && 
+                         get(/databases/$(database)/documents/users/$(userId)).data.automationRuleCount < 50;
+      }
+      
+      // User knowledge graph subcollection
+      match /knowledgeNodes/{nodeId} {
+        allow read, write: if isOwner(userId);
+        allow create: if isOwner(userId) && 
+                         resource.data.keys().hasAll(['label', 'type', 'strength']) &&
+                         hasValidTimestamp(resource.data);
+      }
+      
+      // User integrations subcollection
+      match /integrations/{integrationId} {
+        allow read, write: if isOwner(userId);
+        allow create: if isOwner(userId) && 
+                         resource.data.keys().hasAll(['service', 'isConnected']) &&
+                         hasValidTimestamp(resource.data);
+      }
+      
+      // User insights subcollection
+      match /insights/{insightId} {
+        allow read: if isOwner(userId);
+        allow write: if false; // Only server can write insights
+      }
+      
+      // User analytics subcollection
+      match /analytics/{analyticsId} {
+        allow read: if isOwner(userId);
+        allow write: if false; // Only server can write analytics
+      }
+    }
+    
+    // Global collections (read-only for users)
+    match /systemConfig/{document=**} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Only admin/server can write
+    }
+    
+    match /featureFlags/{document=**} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Only admin/server can write
+    }
+    
+    // Shared knowledge base (read-only for users)
+    match /sharedKnowledge/{document=**} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Only server can write
+    }
+    
+    // Public templates and examples
+    match /templates/{document=**} {
+      allow read: if true; // Public read access
+      allow write: if false; // Only admin can write
+    }
+    
+    // Error logging (write-only for users)
+    match /errorLogs/{logId} {
+      allow create: if isAuthenticated() && 
+                       resource.data.userId == request.auth.uid &&
+                       hasValidTimestamp(resource.data);
+      allow read, update, delete: if false;
+    }
+    
+    // Usage statistics (write-only for users)
+    match /usageStats/{statId} {
+      allow create: if isAuthenticated() && 
+                       resource.data.userId == request.auth.uid;
+      allow read, update, delete: if false;
+    }
+    
+    // Feedback and support
+    match /feedback/{feedbackId} {
+      allow create: if isAuthenticated() && 
+                       resource.data.userId == request.auth.uid &&
+                       hasValidTimestamp(resource.data);
+      allow read: if isOwner(resource.data.userId);
+      allow update, delete: if false;
+    }
+    
+    // Default deny rule
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiro AI Sidebar</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      color: white;
+      height: 100vh;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .sidebar-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 320px;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-header {
+      padding: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .logo-icon {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .sidebar-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    .section {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-icon {
+      font-size: 16px;
+    }
+
+    .suggestion-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .suggestion-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .suggestion-title {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .suggestion-description {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.4;
+    }
+
+    .suggestion-confidence {
+      font-size: 10px;
+      color: #3b82f6;
+      margin-top: 4px;
+    }
+
+    .quick-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .quick-action-btn {
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #3b82f6;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .quick-action-btn:hover {
+      background: rgba(59, 130, 246, 0.3);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    .context-info {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    .context-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 11px;
+    }
+
+    .context-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .context-label {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .context-value {
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+    }
+
+    .insights-list {
+      list-style: none;
+    }
+
+    .insight-item {
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 8px;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .insight-type {
+      color: #8b5cf6;
+      font-weight: 500;
+      font-size: 10px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .loading-spinner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-top: 2px solid #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 20px;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+    }
+
+    .empty-state-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+      opacity: 0.5;
+    }
+
+    .sidebar-footer {
+      padding: 12px 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .settings-btn {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .settings-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    /* Scrollbar styling */
+    .sidebar-content::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .sidebar-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .sidebar-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+    }
+
+    .sidebar-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Animation classes */
+    .fade-in {
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .slide-in {
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .sidebar-container {
+        width: 280px;
+      }
+      
+      .quick-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-container slide-in">
+    <!-- Header -->
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon">K</div>
+        <span>Kiro</span>
+      </div>
+      <button class="close-btn" id="closeSidebar">&times;</button>
+    </div>
+
+    <!-- Content -->
+    <div class="sidebar-content">
+      <!-- Quick Actions -->
+      <div class="section">
+        <div class="section-title">
+          <span class="section-icon">⚡</span>
+          Quick Actions
+        </div>
+        <div class="quick-actions">
+          <button class="quick-action-btn" data-action="summarize">
+            📄 Summarize
+          </button>
+          <button class="quick-action-btn" data-action="explain">
+            💡 Explain
+          </button>
+          <button class="quick-action-btn" data-action="translate">
+            🌐 Translate
+          </button>
+          <button class="quick-action-btn" data-action="save">
+            💾 Save
+          </button>
+        </div>
+      </div>
+
+      <!-- Context Information -->
+      <div class="section">
+        <div class="section-title">
+          <span class="section-icon">📊</span>
+          Page Context
+        </div>
+        <div class="context-info">
+          <div class="context-item">
+            <span class="context-label">Type:</span>
+            <span class="context-value" id="pageType">-</span>
+          </div>
+          <div class="context-item">
+            <span class="context-label">Reading Time:</span>
+            <span class="context-value" id="readingTime">-</span>
+          </div>
+          <div class="context-item">
+            <span class="context-label">Complexity:</span>
+            <span class="context-value" id="complexity">-</span>
+          </div>
+          <div class="context-item">
+            <span class="context-label">Language:</span>
+            <span class="context-value" id="language">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Suggestions -->
+      <div class="section">
+        <div class="section-title">
+          <span class="section-icon">🤖</span>
+          AI Suggestions
+        </div>
+        <div id="suggestionsContainer">
+          <div class="loading-spinner">
+            <div class="spinner"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Insights -->
+      <div class="section">
+        <div class="section-title">
+          <span class="section-icon">💎</span>
+          Insights
+        </div>
+        <div id="insightsContainer">
+          <div class="empty-state">
+            <div class="empty-state-icon">🔍</div>
+            <div>Analyzing page for insights...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="sidebar-footer">
+      <div class="status-indicator">
+        <div class="status-dot"></div>
+        <span>AI Active</span>
+      </div>
+      <button class="settings-btn" id="openSettings">⚙️</button>
+    </div>
+  </div>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>
